@@ -1,0 +1,113 @@
+# This root was possible by the generous donations to the vacuum robot buying fund
+# Especially I want to thank Vtel (https://github.com/zvldz) for his donation
+
+# WARNING: there are reports that devices might have issues after the battery is removed.
+# Before you proceed with the disassembly, check if you device is still operating correctly
+# after you removed and reattached the battery.
+
+# go to dustbuilder.dontvaccum.me and generate a firmware for your robot
+# for S5 Max: https://dustbuilder.dontvacuum.me/_s5e.html
+# for S6 Pure: https://dustbuilder.dontvacuum.me/_a08.html
+# for S4 Max: https://dustbuilder.dontvacuum.me/_a19.html
+# for T7 (Mainland China): https://dustbuilder.dontvacuum.me/_a11.html
+# ^^^ DO THIS FIRST, as the shell below will timeout at some point
+
+# connect uart to the robot (115200 baud, no flow control)
+# power on the robot while pressing the "s" key. you should get into the uboot shell ("sunxi#") 
+# you need to press the power button for 3 seconds for the device to power up
+
+# force to boot system B
+setenv boot_fs b
+setenv nand_root /dev/nandf
+setenv setargs_nand ${setargs_nand} init=/bin/sh
+boot
+
+# disable watchdog after linux is booted (you have 7 seconds)
+echo 'V' > /dev/watchdog
+
+# start required system services
+mount -n -t proc none /proc 
+mount -n -t tmpfs none /run
+mkdir -p /run/shm
+mount -n -t tmpfs tmpfs /var -o size=30m
+mkdir -p /var/tmp /var/log /var/modules /var/lib/misc/ /var/lib/dhcp
+ln -s /run /var/run
+mkdir -p /dev/pts
+mount -n -t devpts none /dev/pts
+mount -n -t sysfs none /sys
+ln -s /run/shm /dev/shm
+echo /sbin/mdev > /proc/sys/kernel/hotplug
+mdev -s
+/etc/init/S01logging start
+/etc/init/S02hostname start
+/etc/init/S02network start
+/etc/init/S02rrboot start
+/etc/init/S03mountall start
+
+# change SSID and password, skip this if your robot was already connected to your wifi before
+# Hint: This WiFi needs to have an Internet connection.
+echo ssid=\"your WiFi SSID here\" > /mnt/data/miio/wifi.conf
+echo psk=\"your WiFi password here\" >> /mnt/data/miio/wifi.conf
+echo key_mgmt=\"WPA\" >> /mnt/data/miio/wifi.conf
+echo uid=0 >> /mnt/data/miio/wifi.conf
+echo region=us >> /mnt/data/miio/wifi.conf
+echo cfg_by=miot >> /mnt/data/miio/wifi.conf
+echo 0 > /mnt/data/miio/device.uid
+echo "us" > /mnt/data/miio/device.country
+
+# this connects the robot to the wifi
+/opt/rockrobo/wlan/wifi_start.sh
+
+# cleanup log files
+rm -rf /mnt/data/rockrobo/rrlog
+
+mkdir /mnt/data/backups
+cd /mnt/data/backups
+dd if=/dev/nanda | gzip -9 > nanda.dd.gz
+dd if=/dev/nandb | gzip -9 > nandb.dd.gz
+dd if=/dev/nandk | gzip -9 > nandk.dd.gz
+cd /mnt/data/backups
+tar -czvf robot-backup.tar.gz *.gz
+rm *.dd.gz
+
+# Click on the directory/netcat link in the dustbuilder email, and select start_server.php
+# Start the streamer and copy the command line from it, and execute it on the robot
+# e.g. nc builder.dontvacuum.me $port | dd of=/mnt/data/update.tar.gz
+
+cd /mnt/data/
+tar -xzvf update.tar.gz
+md5sum -c firmware.md5sum
+# DO NOT PROCEED IF YOU DID NOT GET "OK" FOR BOTH FILES!!
+# Write firmware for system A
+dd if=boot.img of=/dev/nandc
+dd if=rootfs.img of=/dev/nande
+
+# power off the robot
+
+# force to boot system A
+setenv boot_fs a
+setenv nand_root /dev/nande
+setenv setargs_nand ${setargs_nand}
+boot
+
+# if update was successful, you should be able to SSH into the robot (user:root)
+# after SSH, update system B
+# !! DO NOT PROCEED IF THE SYSTEM SEEMS UNSTABLE OR REBOOTS !!
+cd /mnt/data/
+dd if=rootfs.img of=/dev/nandf
+
+# check that you have 35Mbyte free on /mnt/data
+df -h 
+
+# this step activates valetudo
+# you can repeat this step whenever you want to update valetudo
+# Hint: Valetudo only works if you select "Patch DNS" while building the firmware
+# Hint2: Using Valetudo disables the Cloud. You cannot use both!
+
+cd /mnt/data/
+wget https://github.com/Hypfer/Valetudo/releases/download/2021.07.0/valetudo-armv7-lowmem -O valetudo
+chmod +x valetudo
+cp /root/_root.sh.tpl /mnt/reserve/_root.sh
+chmod +x /mnt/reserve/_root.sh
+
+
