@@ -5,6 +5,8 @@ This repo is available on https://builder.dontvacuum.me/howtos/
 ## Structure
 / These files are in https://builder.dontvacuum.me/howtos/ and are the typical how-tos that are linked in forums or chats
 
+/dreameadapter This folder is generally referenced for all Dreame rooting. It contains PCBs, Pinout and pictures
+
 /1c This howtos are automatically packaged for all MR133 based Dreame devices (1C, D9, F9)
 
 /1t This howtos are automatically packaged for all MR813 based Dreame devices (1T, L10 Pro, Z10 Pro)
