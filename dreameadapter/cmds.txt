@@ -1,0 +1,42 @@
+In the U-Boot shell run this commands:
+
+setenv init /bin/sh
+setenv boot_partition boot1
+run setargs_nand
+run boot_normal
+
+Your robot should boot and present you a shell
+
+After the system booted, run these commands:
+
+/etc/init.d/sysconfig.sh
+echo V > /dev/watchdog
+/etc/init.d/mount_private.sh
+/etc/init.d/mount_misc.sh
+
+Run these commands to print the configuration (save output):
+
+grep "" /mnt/private/ULI/factory/*
+
+Run these commands to save the calibration (save output):
+
+grep "" /mnt/misc/*.json
+grep "" /mnt/misc/*.yaml
+cat /mnt/misc/*.txt
+hexdump /mnt/misc/*.bin
+
+Download valetudo binary to /data:
+https://github.com/Hypfer/Valetudo/releases
+Device dependent (check our website):
+1C, F9, D9: valetudo-armv7-lowmem
+1T, L10 Pro: valetudo-aarch64
+wget https://github.com/Hypfer/Valetudo/releases/latest/download/valetudo-armv7-lowmem -O /data/valetudo
+
+Make valetudo executable
+chmod +x /data/valetudo
+
+Enable boot script
+cp /misc/_root_postboot.sh.tpl /data/_root_postboot.sh
+chmod +x /data/_root_postboot.sh
+
+Reboot

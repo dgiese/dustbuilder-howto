@@ -1,0 +1,114 @@
+Dreame FAQ
+
+### General questions ###
+Q: Which devices are currently rootable?
+A: To my knowledge, all models released and all devices manufactured before mid-August 2021 are rootable.
+Check the box for the manufacturing date.
+
+Q: Where can I find information about the hardware (SoC, RAM, Flash)?
+A: check here: https://dontvacuum.me/robotinfo/
+
+Q: What is the current recommended rooting method?
+A: The safest and easiest way to root is to use the "WiFi reset UART root", see below for more details
+
+Q: Are devices manufactured after September 2021 rootable?
+A: There is no experience yet. The exact countermeasures by the manufacturer are unknown at this time.
+If you have such a new device, you might contact me before trying to root it.
+
+Q: If the current rooting methods are blocked, will new rooting methods be released soon?
+A: I publish rooting methods with a huge delay in order to prevent the manufacturer to block them. 
+Expect the next wave of rooting methods to Defcon 2022.
+
+Q: Which models are recommended for rooting?
+A: Currently (Sept 2021), I would recommend to go with the Z10 Pro (p2028) or the L10 Pro (p2029, if you dont need a base station).
+These models have a LIDAR sensor for navigation and have 512 MByte RAM, which should be enough for custom software. 
+If you want to save money, you can also go with the D9 (p2009), but you might have issues due to 256 MByte of RAM. 
+I personally would stay away from VSLAM-only devices.
+
+Q: Can I use the cloud if I root my robot?
+A: Yes, if you build your image without the "patch_dns" option, you will be still able to use the MiHome app. 
+However, Valetudo will not work.
+
+Q: Should I root my robot now?
+A: If you plan to ever root your robot or use with custom software, you should root your robot *now*. And make
+backups of all relevant configuration files. It is not known yet, how the vendor will lock down the devices.
+So without rooting, you might get a forced update and get locked out of future root.
+
+Q: Should I trick the dustbuilder with a fake serial number when my serial is rejected? Or should I modify the installer?
+A: NO! People who tried that ended up with bricked devices. I added these checks for a reason...
+
+Q: What is the first thing I should do when I have any sort of shell on the device?
+A: Make backups of all files in /mnt/private/ULI/factory and /mnt/misc! And store them outside of the device!!!
+The commands for the backup look like this (save all the outputs, some files might not exist on your model):
+'grep "" /mnt/private/ULI/factory/*'
+'grep "" /mnt/misc/*.json'
+'grep "" /mnt/misc/*.yaml'
+'cat /mnt/misc/*.txt'
+'hexdump /mnt/misc/*.bin'
+
+Q: Are you offering a 24/7 support? How fast will you provide support for new models or new firmware versions?
+A: Rooting robots is a hobby for me. It may take days or even weeks to implement new features or models. Typically I wait
+many weeks before rolling out new firmware version (in order to check for potential problems). As I finance the robots from
+my personal funds (+ donations), I am limited in the number of different models I can get for testing and rooting. Currently,
+I own 34 robots and it does not make financially sense to buy the same model every couple months to check for changes :(
+
+Q: Is rooting dangerous? Should I root my robot directly after I got it?
+A: There are various things which might go wrong while rooting. Make sure that you can accept a bricked device and that you
+dont get trouble from your partner. I *strongly* recommend to let the robot run for a few days before you try to root it.
+That way you get a feeling if the robot has problems or is broken. We had cases where it was not clear if problems came from
+rooting or already existed on the device from the beginning.
+
+Q: Why are all the howtos and information all over the place? Can't you write proper documentation?
+A: Writing documentation takes a lot of time and is not really fun. I prefer to spend my time on hacking devices. This FAQ
+should point you to the right ressources. Also, feel free to join the Telegram channel, where you can meet many people that
+rooted their devices and can help you if you get stuck with the Howto's.
+
+### Rooting questions ###
+Q: Can be a rooted device reversed to stock firmware?
+A: Yes, for most cases. As it might be individually different, you might want to contact me (Dennis) if you plan to do so.
+
+Q: Are there remote root methods public, similar to the Xiaomi vaccum robot (aka roborock v1)?
+A: No. All root methods require the removal of a plastic cover. However, we do not touch warranty seals.
+
+Q: Which root methods are currently public?
+A: There are "WiFi reset UART root", "U-Boot single user boot" and "FEL flashing". "WiFi reset UART root" is expected to
+be patched very soon in newer firmware versions. "U-Boot single user boot" only works on 1C, F9, D9 and some MOVA models.
+The "FEL flashing" should work on most devices, but carries a risk of bricking the device / loosing the calibration data.
+
+Q: When do I need to build a Livesuit image?
+A: You need the Livesuit image only for the FEL flashing method. However, currently it is strongly recommended to use a
+safer method. The Livesuit image is not compatible with the UART based methods.
+
+Q: What is the "WiFi reset UART root"?
+A: Dreame left a function in the firmware, which enables a login shell. You need to be connected via UART. If the device is
+fully booted, press the "WiFi reset" button for a short time (<=1 second). This will spawn a login shell, where you can login
+using the "root" user and the device-specific root password. From there, you can install a "manual installation" custom firmware.
+
+Q: How is the root password computed?
+A: You need the serial number *under the dustbin* in all-caps. Compute it under linux by this command:
+'echo -n "P2009XXXXXXXXXXXXX" | md5sum | base64'. The expected result is: 'Y2QxNjA4YjdhNWU1Y2RlNGQ3ODkzZjY4Yzk1MTVkOTAgIC0K'
+For non-Linux user, you might use this formula:
+'echo -n "P2009XXXXXXXXXXXXX" | md5'
+'echo -n -e "*result from md5 above*"  -\n" | base64'
+
+Q: Are there example howtos for the "WiFi reset UART root"?
+A: Yes, a telegram channel member has created this document for the L10 Pro, which should apply for all devices (except backups might differ):
+https://docs.google.com/document/d/1seCbcI2ZaUFZwOu_ibYgg7_yoR4OM0aDRkaXpAlxiFU/edit
+
+Q: Which UART adapters can be used?
+A: Make sure that the adapter is using 3.3V logic level. Check the datasheet of your adapter. Some adapters have jumpers to switch between
+5V and 3.3V. You can alternatively use a Raspberry Pi or a ESP8266/ESP32 board.
+
+### Valetudo / MQTT questions ###
+Q: Can I use Valetudo and the MiHome App at the same time?
+A: No. If you use Valetudo, all the Cloud traffic will be redirected. To enable the redirection, you need to select the "patch_DNS" option
+in the Dustbuilder. This will effectively disconnect your robot from the Cloud.
+
+Q: Does Valetudo support all the features that are provided thru the MiHome app?
+A: No, some features (like Map editing, Mop zones, Timers) might not be available. Check http://valetudo.cloud for more details.
+
+### Dustbuilder questions ###
+Q: I don't trust you with my email address. Can I use a fake or a temporary one?
+A: Don't use fake email, as you will not get your firmware. If you dont want to get many unsolicited spam emails from me, feel free to use a temporary one. 
+If you prefer to stay anonymous, you can use also "anonymous" as the e-Mail address. This allows the generation without any email. 
+However, the anonymous generation requires you to provide your public ssh key for technical reasons.
