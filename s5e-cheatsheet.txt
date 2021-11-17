@@ -1,6 +1,8 @@
 # This root was possible by the generous donations to the vacuum robot buying fund
 # Especially I want to thank Vtel (https://github.com/zvldz) for his donation
 
+### If you find issues with this document or have improvements, please contribute here: https://github.com/dgiese/dustbuilder-howto/
+
 # WARNING: there are reports that devices might have issues after the battery is removed.
 # Before you proceed with the disassembly, check if you device is still operating correctly
 # after you removed and reattached the battery.
