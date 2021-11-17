@@ -1,5 +1,7 @@
 Dreame FAQ
 
+### If you find issues with this document or have improvements, please contribute here: https://github.com/dgiese/dustbuilder-howto/
+
 ### General questions ###
 Q: Which devices are currently rootable?
 A: To my knowledge, all models released and all devices manufactured before mid-August 2021 are rootable.
