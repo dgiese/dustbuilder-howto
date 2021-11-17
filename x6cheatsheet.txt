@@ -1,7 +1,9 @@
 S6/T6 Rooting Cheatsheet
 28.06.2020 Dennis Giese (https://dontvacuum.me/)
 
-Depending on the production date of your robot, the "vinda" file might not exist.
+### If you find issues with this document or have improvements, please contribute here: https://github.com/dgiese/dustbuilder-howto/
+
+Depending on the production date of your robot, the "vinda" file might not exist. Use Method 2) in that case
 
 
 1) Try first if robot is manufactured before 06/2020
