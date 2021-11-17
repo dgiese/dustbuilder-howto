@@ -1,3 +1,5 @@
+### If you find issues with this document or have improvements, please contribute here: https://github.com/dgiese/dustbuilder-howto/
+
 (You might want to have a firmware build before starting)
 In the U-Boot shell run this commands:
 
