@@ -1,3 +1,4 @@
+(You might want to have a firmware build before starting)
 In the U-Boot shell run this commands:
 
 setenv init /bin/sh
@@ -18,18 +19,46 @@ Run these commands to print the configuration (save output):
 
 grep "" /mnt/private/ULI/factory/*
 
-Run these commands to save the calibration (save output):
+Run these commands to save the calibration (save output, outside of the robot):
 
 grep "" /mnt/misc/*.json
 grep "" /mnt/misc/*.yaml
 cat /mnt/misc/*.txt
 hexdump /mnt/misc/*.bin
 
+Temporarily enable the shell and run the normal services:
+
+mount /tmp
+mkdir /tmp/fakeetc
+cp -R /etc/* /tmp/fakeetc
+mount --bind /tmp/fakeetc /etc
+echo >> /tmp/fakeetc/inittab
+echo '::respawn:-/bin/sh' >> /tmp/fakeetc/inittab
+exec init
+
+Run these commands to create binary backups:
+mkdir -p /tmp/backup
+tar -cvzf /tmp/backup/misc_backup.tgz -C /mnt/misc .
+tar -cvzf /tmp/backup/factory.tgz -C /mnt/private/ULI/factory/ .
+cp /tmp/backup/*.tgz /data/
+
+
+Run this commands (replace SSID and password) to connect to your wifi (this will connect the robot to the internet and temporarily to the cloud):
+wifi_cli -c "SSID" "password"
+
+Run this commands to download an install the rooted firmware:
+cd /tmp
+wget {url-of-firmware.tar.gz}
+tar -xzvf {name-of-firmware.tar.gz}
+./install.sh
+
+Sidenote: You can transfer the firmware via nc or via a local webserver. In that case you do not need to use wifi_cli
+
 Download valetudo binary to /data:
 https://github.com/Hypfer/Valetudo/releases
 Device dependent (check our website):
 1C, F9, D9: valetudo-armv7-lowmem
-1T, L10 Pro: valetudo-aarch64
+1T, L10 Pro, Z10 Pro: valetudo-aarch64
 wget https://github.com/Hypfer/Valetudo/releases/latest/download/valetudo-armv7-lowmem -O /data/valetudo
 
 Make valetudo executable
@@ -40,3 +69,12 @@ cp /misc/_root_postboot.sh.tpl /data/_root_postboot.sh
 chmod +x /data/_root_postboot.sh
 
 Reboot
+
+
+(If you used wifi_cli, you need to delete files in /data/config/miio, reboot, connect to the robot WiFi and provision the WiFi via Valetudo):
+rm /data/config/miio
+reboot
+- wait for the open WiFi of the robot to show up
+- connect to that WiFi
+- navigate to http://192.168.5.1 in your browser
+- Got to settings/wifi and enter your WiFi credentials
