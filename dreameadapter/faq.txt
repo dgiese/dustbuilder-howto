@@ -94,8 +94,8 @@ For non-Linux user, you might use this formula:
 'echo -n -e "*result from md5 above*"  -\n" | base64'
 
 Q: Are there example howtos for the "WiFi reset UART root"?
-A: Yes, a telegram channel member has created this document for the L10 Pro, which should apply for all devices (except backups might differ):
-https://docs.google.com/document/d/1seCbcI2ZaUFZwOu_ibYgg7_yoR4OM0aDRkaXpAlxiFU/edit
+A: Yes. Check the Valetudo docs:
+https://valetudo.cloud/pages/general/rooting-instructions.html
 
 Q: Which UART adapters can be used?
 A: Make sure that the adapter is using 3.3V logic level. Check the datasheet of your adapter. Some adapters have jumpers to switch between
