@@ -75,6 +75,8 @@ rm *.dd.gz
 # Click on the directory/netcat link in the dustbuilder email, and select start_server.php
 # Start the streamer and copy the command line from it, and execute it on the robot
 # e.g. nc builder.dontvacuum.me $port | dd of=/mnt/data/update.tar.gz
+# Hint: The streamer will tell you to download it to /tmp. You might need to move it from there
+# or just change the line
 
 cd /mnt/data/
 tar -xzvf update.tar.gz
