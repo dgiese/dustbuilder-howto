@@ -109,7 +109,7 @@ df -h
 # Hint2: Using Valetudo disables the Cloud. You cannot use both!
 
 cd /mnt/data/
-wget https://github.com/Hypfer/Valetudo/releases/download/2021.07.0/valetudo-armv7-lowmem -O valetudo
+wget https://github.com/Hypfer/Valetudo/releases/latest/download/valetudo-armv7-lowmem -O valetudo
 chmod +x valetudo
 cp /root/_root.sh.tpl /mnt/reserve/_root.sh
 chmod +x /mnt/reserve/_root.sh
