@@ -92,6 +92,7 @@ A: You need the serial number *under the dustbin* in all-caps. Compute it under 
 For non-Linux user, you might use this formula:
 'echo -n "P2009XXXXXXXXXXXXX" | md5'
 'echo -n -e "*result from md5 above*"  -\n" | base64'
+You can use also the calculator here: https://builder.dontvacuum.me/dreamepassword.php
 
 Q: Are there example howtos for the "WiFi reset UART root"?
 A: Yes. Check the Valetudo docs:
