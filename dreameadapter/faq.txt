@@ -25,7 +25,7 @@ Q: Which models are recommended for rooting?
 A: Currently (Sept 2021), I would recommend to go with the Z10 Pro (p2028) or the L10 Pro (p2029, if you dont need a base station).
 These models have a LIDAR sensor for navigation and have 512 MByte RAM, which should be enough for custom software. 
 If you want to save money, you can also go with the D9 (p2009), but you might have issues due to 256 MByte of RAM. 
-I personally would stay away from VSLAM-only devices.
+I personally would stay away from VSLAM-only devices. Check also this page for device specific warnings: https://dontvacuum.me/robotinfo/
 
 Q: Can I use the cloud if I root my robot?
 A: Yes, if you build your image without the "patch_dns" option, you will be still able to use the MiHome app. 
@@ -34,7 +34,8 @@ However, Valetudo will not work.
 Q: Should I root my robot now?
 A: If you plan to ever root your robot or use with custom software, you should root your robot *now*. And make
 backups of all relevant configuration files. It is not known yet, how the vendor will lock down the devices.
-So without rooting, you might get a forced update and get locked out of future root.
+So without rooting, you might get a forced update and get locked out of future root. However, it is totally fine if only you use the robot
+by pressing its buttons and not connecting it to the cloud. That way you know if its working fine (or if you need to send it back).
 
 Q: Should I trick the dustbuilder with a fake serial number when my serial is rejected? Or should I modify the installer?
 A: NO! People who tried that ended up with bricked devices. I added these checks for a reason...
@@ -57,6 +58,7 @@ I own 34 robots and it does not make financially sense to buy the same model eve
 Q: Is rooting dangerous? Should I root my robot directly after I got it?
 A: There are various things which might go wrong while rooting. Make sure that you can accept a bricked device and that you
 dont get trouble from your partner. I *strongly* recommend to let the robot run for a few days before you try to root it.
+Do not use the MiHome app, as it will trick you in updating the firmware. Use the buttons on the robot itself.
 That way you get a feeling if the robot has problems or is broken. We had cases where it was not clear if problems came from
 rooting or already existed on the device from the beginning.
 
@@ -65,9 +67,20 @@ A: Writing documentation takes a lot of time and is not really fun. I prefer to 
 should point you to the right ressources. Also, feel free to join the Telegram channel, where you can meet many people that
 rooted their devices and can help you if you get stuck with the Howto's.
 
+Q: Which communication channels exist?
+A: We mostly use Telegram. If you have a Dreame robot, these channels might be relevant for you:
+- Dreame user group (for people that have Dreame robots) https://t.me/+z0QXbiT9P3dmN2Yy  
+- Valetudo user group (for Valetudo users, not only Dreame robots) https://t.me/+NTCnSnuQYTA2ZTgy
+- Dustcloud group (general Xiaomi hacking stuff, not only robots) https://t.me/+1HTfs4KiMMwzOGEy
+^^^ Warning: You are likely to get ignored if you ask questions that have been discussed in document.
+^^^ Make sure that you read the whole document before joining. Read recent discussions or search for your
+^^^ Question before asking one. It is very likely that someone asked something similar before.
+
 ### Rooting questions ###
 Q: Can be a rooted device reversed to stock firmware?
 A: Yes, for most cases. As it might be individually different, you might want to contact me (Dennis) if you plan to do so.
+Keep in mind, that we remove the firmware encryption keys from custom firmware. That way the manufacturer cannot push a forced update
+onto your device. But you also cannot install stock firmware.
 
 Q: Are there remote root methods public, similar to the Xiaomi vaccum robot (aka roborock v1)?
 A: No. All root methods require the removal of a plastic cover. However, we do not touch warranty seals.
@@ -85,6 +98,7 @@ Q: What is the "WiFi reset UART root"?
 A: Dreame left a function in the firmware, which enables a login shell. You need to be connected via UART. If the device is
 fully booted, press the "WiFi reset" button for a short time (<=1 second). This will spawn a login shell, where you can login
 using the "root" user and the device-specific root password. From there, you can install a "manual installation" custom firmware.
+A step by step howto can be found here: https://builder.dontvacuum.me/dreame/cmds-reset.txt
 
 Q: How is the root password computed?
 A: You need the serial number *under the dustbin* in all-caps. Compute it under linux by this command:
@@ -95,8 +109,14 @@ For non-Linux user, you might use this formula:
 You can use also the calculator here: https://builder.dontvacuum.me/dreamepassword.php
 
 Q: Are there example howtos for the "WiFi reset UART root"?
-A: Yes. Check the Valetudo docs:
+A: Yes. https://builder.dontvacuum.me/dreame/cmds-reset.txt
+Check also the Valetudo docs:
 https://valetudo.cloud/pages/general/rooting-instructions.html
+
+Q: How does the "U-Boot single user boot" work?  (only for 1C, F9, D9 and some MOVA models).
+A: You need to be connected via UART. While powering on + booting, we keep the "s" key pressed. This should interrupt the 
+U-Boot booting process and give us a shell in the bootloader. From here we can manipulate the booting behaviour and get a single user shell.
+A step by step howto can be found here: https://builder.dontvacuum.me/dreame/cmds.txt
 
 Q: Which UART adapters can be used?
 A: Make sure that the adapter is using 3.3V logic level. Check the datasheet of your adapter. Some adapters have jumpers to switch between
@@ -115,3 +135,22 @@ Q: I don't trust you with my email address. Can I use a fake or a temporary one?
 A: Don't use fake email, as you will not get your firmware. If you dont want to get many unsolicited spam emails from me, feel free to use a temporary one. 
 If you prefer to stay anonymous, you can use also "anonymous" as the e-Mail address. This allows the generation without any email. 
 However, the anonymous generation requires you to provide your public ssh key for technical reasons.
+
+Q: I want to be able to build firmwares myself. Are the tools available?
+A: Most of the tools are available. However, unencrypted firmware are not published by me. You can create copies of your firmware by making a backup of /dev/by-name/rootfs1 partition *before* rooting. Occasionally, I upload encrypted versions of the firmware to https://builder.dontvacuum.me/pkg/firmwares/dreame/. 
+To decrypt them, you need the "pem" files out of /etc/ (before rooting). 
+When building a firmware over dustbuilder, it will give you a script to reproduce the build. Still, you need to provide an unencrypted firmware. 
+Otherwise the scripts are public. The dustbuilder uses the following repos:
+https://github.com/dgiese/dustbuilder-features
+https://github.com/dgiese/dustbuilder-script-public
+
+Q: How can I backup the firmware encryption keys?
+A: The encryption keys are stored in /etc. You should make backups of /etc/OTA_Key_pub.pem and /etc/publickey.pem
+
+Q: I have a t-online.de email address and do not receive emails. What can I do?
+A: T-Online seems not to like my servers. I get always the error "host mx02.t-online.de[194.25.134.9] refused to talk
+    to me: 554 IP=44.44.127.42 - A problem occurred. (Ask your postmaster for help or to contact tosa@rx.t-online.de to clarify.)
+   If you have a T-Online.de email address, feel free to complain to that "tosa" email address for me. Otherwise use a different email address.
+
+Q: Will the backend code and configuration be available at some point?
+A: No. The code is highly customized to run on *my* environment and for my use-cases. While there is a number of people that have access to the environment and the code, I prefer not to make it public. If you do not like that, you are free to use the building tools, which are publically available and independant of the backend.
