@@ -1,6 +1,12 @@
 ### If you find issues with this document or have improvements, please contribute here: https://github.com/dgiese/dustbuilder-howto/
 
+# This document describes the rooting method via U-Boot shell. Check cmds-reset.txt for the reset method
+
 (You might want to have a firmware build before starting)
+
+Connect via UART to your robot (115200 baud, no flow control). Make sure that the robot is powered off.
+Keep the "s" key pressed on your keyboard, while powering the robot on. You should see a "sunxi#" prompt after a few seconds.
+
 In the U-Boot shell run this commands:
 
 setenv init /bin/sh
@@ -17,6 +23,9 @@ echo V > /dev/watchdog
 /etc/init.d/mount_private.sh
 /etc/init.d/mount_misc.sh
 
+Check the current installed version (check "fw_arm_ver"):
+cat /etc/os-release
+
 Run these commands to print the configuration (save output):
 
 grep "" /mnt/private/ULI/factory/*
@@ -27,6 +36,12 @@ grep "" /mnt/misc/*.json
 grep "" /mnt/misc/*.yaml
 cat /mnt/misc/*.txt
 hexdump /mnt/misc/*.bin
+
+Make copies of the firmware encryption keys (e.g., to restore the robot to a factory state)
+cat /etc/OTA_Key_pub.pem
+cat /etc/publickey.pem
+
+Make sure that you save the output of the calibration and the encryption keys before proceeding
 
 Temporarily enable the shell and run the normal services:
 
