@@ -1,10 +1,14 @@
 ### If you find issues with this document or have improvements, please contribute here: https://github.com/dgiese/dustbuilder-howto/
 
 # This document describes the rooting method via U-Boot shell. Check cmds-reset.txt for the reset method
+# This method was patched in newer version, but might still work with the factory version of your robot.
+# If you do not get a u-boot prompt, your device might be too new or you updated the robot to a new firmware version.
+# In such cases, and if you are in US or Germany, please open a ticket at vaers.dontvacuum.me for help
 
 (You might want to have a firmware build before starting)
 
 Connect via UART to your robot (115200 baud, no flow control). Make sure that the robot is powered off.
+Check this document for the pinout and further information: https://builder.dontvacuum.me/dreame/dreame.pdf
 Keep the "s" key pressed on your keyboard, while powering the robot on. You should see a "sunxi#" prompt after a few seconds.
 
 In the U-Boot shell run this commands:
