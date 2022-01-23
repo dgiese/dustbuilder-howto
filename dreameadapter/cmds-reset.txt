@@ -5,6 +5,7 @@
 # In such cases, and if you are in US or Germany, please open a ticket at vaers.dontvacuum.me for help
 
 (You might want to have a firmware build before starting)
+It is recommended that you copy and paste the commands.
 
 Connect via UART to your robot (115200 baud, no flow control).
 Check this document for the pinout and further information: https://builder.dontvacuum.me/dreame/dreame.pdf
