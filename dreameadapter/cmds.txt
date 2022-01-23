@@ -6,6 +6,7 @@
 # In such cases, and if you are in US or Germany, please open a ticket at vaers.dontvacuum.me for help
 
 (You might want to have a firmware build before starting)
+It is recommended, that you copy and paste the commands to avoid typos.
 
 Connect via UART to your robot (115200 baud, no flow control). Make sure that the robot is powered off.
 Check this document for the pinout and further information: https://builder.dontvacuum.me/dreame/dreame.pdf
@@ -21,6 +22,7 @@ run boot_normal
 Your robot should boot and present you a shell
 
 After the system booted, run these commands:
+(you need to execute them in the first 10 seconds after having shell, or the robot reboots)
 
 /etc/init.d/sysconfig.sh
 echo V > /dev/watchdog
