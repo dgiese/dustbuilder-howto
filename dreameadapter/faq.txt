@@ -1,4 +1,5 @@
 Dreame FAQ
+Last updated: 01.02.2022
 
 ### If you find issues with this document or have improvements, please contribute here: https://github.com/dgiese/dustbuilder-howto/
 
@@ -7,7 +8,7 @@ Q: Which devices are currently rootable?
 A: To my knowledge, all models released and all devices manufactured before mid-August 2021 are rootable.
 Check the box for the manufacturing date.
 
-Q: Where can I find information about the hardware (SoC, RAM, Flash)?
+Q: Where can I find information about the hardware (SoC, RAM, Flash) and software (firmware versions)?
 A: check here: https://dontvacuum.me/robotinfo/
 
 Q: What is the current recommended rooting method?
@@ -121,6 +122,10 @@ A step by step howto can be found here: https://builder.dontvacuum.me/dreame/cmd
 Q: Which UART adapters can be used?
 A: Make sure that the adapter is using 3.3V logic level. Check the datasheet of your adapter. Some adapters have jumpers to switch between
 5V and 3.3V. You can alternatively use a Raspberry Pi or a ESP8266/ESP32 board.
+
+Q: Where do I get firmware updates after rooting?
+A: Dustbuilder will likely offer firmware updates a few weeks after it became available. 
+Check also this page to see official firmwares: https://dontvacuum.me/robotinfo/
 
 ### Valetudo / MQTT questions ###
 Q: Can I use Valetudo and the MiHome App at the same time?
