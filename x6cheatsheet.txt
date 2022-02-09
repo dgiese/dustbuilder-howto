@@ -3,6 +3,11 @@ S6/T6 Rooting Cheatsheet
 
 ### If you find issues with this document or have improvements, please contribute here: https://github.com/dgiese/dustbuilder-howto/
 
+# If you have a Roborock robot, these channels might be relevant for you:
+# - Dust announce channel (channel for firmware/Valetudo updates and info): https://t.me/dust_announce
+# - Roborock S5/S6 user group (for people that have Roborock robots) https://t.me/+CvzALOw70oM2MzUy
+# - Valetudo user group (for Valetudo users, not only Roborock robots) https://t.me/+NTCnSnuQYTA2ZTgy
+
 Depending on the production date of your robot, the "vinda" file might not exist. Use Method 2) in that case
 
 

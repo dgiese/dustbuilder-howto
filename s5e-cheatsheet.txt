@@ -7,6 +7,11 @@
 # Before you proceed with the disassembly, check if you device is still operating correctly
 # after you removed and reattached the battery.
 
+# If you have a Roborock robot, these channels might be relevant for you:
+# - Dust announce channel (channel for firmware/Valetudo updates and info): https://t.me/dust_announce
+# - Roborock S5 Max user group (for people that have Roborock NAND based robots) https://t.me/+kn3EQi7cd4UzYTdi
+# - Valetudo user group (for Valetudo users, not only Roborock robots) https://t.me/+NTCnSnuQYTA2ZTgy
+
 # go to dustbuilder.dontvaccum.me and generate a firmware for your robot
 # for S5 Max: https://dustbuilder.dontvacuum.me/_s5e.html
 # for S6 Pure: https://dustbuilder.dontvacuum.me/_a08.html

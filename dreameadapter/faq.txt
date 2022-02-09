@@ -1,5 +1,5 @@
 Dreame FAQ
-Last updated: 01.02.2022
+Last updated: 08.02.2022
 
 ### If you find issues with this document or have improvements, please contribute here: https://github.com/dgiese/dustbuilder-howto/
 
@@ -49,6 +49,7 @@ The commands for the backup look like this (save all the outputs, some files mig
 'grep "" /mnt/misc/*.yaml'
 'cat /mnt/misc/*.txt'
 'hexdump /mnt/misc/*.bin'
+Hint: It is okay, if you get error messages for some of the commands. Files might not exist on your device.
 
 Q: Are you offering a 24/7 support? How fast will you provide support for new models or new firmware versions?
 A: Rooting robots is a hobby for me. It may take days or even weeks to implement new features or models. Typically I wait
@@ -70,6 +71,7 @@ rooted their devices and can help you if you get stuck with the Howto's.
 
 Q: Which communication channels exist?
 A: We mostly use Telegram. If you have a Dreame robot, these channels might be relevant for you:
+- Dust announce channel (channel for firmware/Valetudo updates and info): https://t.me/dust_announce
 - Dreame user group (for people that have Dreame robots) https://t.me/+z0QXbiT9P3dmN2Yy  
 - Valetudo user group (for Valetudo users, not only Dreame robots) https://t.me/+NTCnSnuQYTA2ZTgy
 - Dustcloud group (general Xiaomi hacking stuff, not only robots) https://t.me/+1HTfs4KiMMwzOGEy
