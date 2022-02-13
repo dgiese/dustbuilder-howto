@@ -29,6 +29,16 @@ echo V > /dev/watchdog
 /etc/init.d/mount_private.sh
 /etc/init.d/mount_misc.sh
 
+Temporarily enable the shell and run the normal services:
+
+mount /tmp
+mkdir /tmp/fakeetc
+cp -R /etc/* /tmp/fakeetc
+mount --bind /tmp/fakeetc /etc
+echo >> /tmp/fakeetc/inittab
+echo '::respawn:-/bin/sh' >> /tmp/fakeetc/inittab
+exec init
+
 Check the current installed version (check "fw_arm_ver"):
 cat /etc/os-release
 
@@ -49,16 +59,6 @@ cat /etc/publickey.pem
 
 Make sure that you save the output of the calibration and the encryption keys before proceeding
 
-Temporarily enable the shell and run the normal services:
-
-mount /tmp
-mkdir /tmp/fakeetc
-cp -R /etc/* /tmp/fakeetc
-mount --bind /tmp/fakeetc /etc
-echo >> /tmp/fakeetc/inittab
-echo '::respawn:-/bin/sh' >> /tmp/fakeetc/inittab
-exec init
-
 Run these commands to create binary backups:
 mkdir -p /tmp/backup
 tar -cvzf /tmp/backup/misc_backup.tgz -C /mnt/misc .
@@ -72,7 +72,7 @@ wifi_cli -c "SSID" "password"
 
 Run this commands to download an install the rooted firmware:
 cd /tmp
-wget {url-of-firmware.tar.gz}
+wget --no-check-certificate {url-of-firmware.tar.gz}
 tar -xzvf {name-of-firmware.tar.gz}
 ./install.sh
 
@@ -83,7 +83,7 @@ https://github.com/Hypfer/Valetudo/releases
 Device dependent (check our website):
 1C, F9, D9: valetudo-armv7-lowmem
 1T, L10 Pro, Z10 Pro: valetudo-aarch64
-wget https://github.com/Hypfer/Valetudo/releases/latest/download/valetudo-armv7-lowmem -O /data/valetudo
+wget --no-check-certificate https://github.com/Hypfer/Valetudo/releases/latest/download/valetudo-armv7-lowmem -O /data/valetudo
 
 Make valetudo executable
 chmod +x /data/valetudo

@@ -52,7 +52,7 @@ wifi_cli -c "SSID" "password"
 
 Run this commands to download an install the rooted firmware:
 cd /tmp
-wget {url-of-firmware.tar.gz}
+wget --no-check-certificate {url-of-firmware.tar.gz}
 tar -xzvf {name-of-firmware.tar.gz}
 ./install.sh
 
@@ -63,7 +63,7 @@ https://github.com/Hypfer/Valetudo/releases
 Device dependent (check our website):
 1C, F9, D9: valetudo-armv7-lowmem
 1T, L10 Pro, Z10 Pro: valetudo-aarch64
-wget https://github.com/Hypfer/Valetudo/releases/latest/download/valetudo-armv7-lowmem -O /data/valetudo
+wget --no-check-certificate https://github.com/Hypfer/Valetudo/releases/latest/download/valetudo-armv7-lowmem -O /data/valetudo
 
 Make valetudo executable
 chmod +x /data/valetudo
