@@ -48,7 +48,8 @@ cp /tmp/backup/*.tgz /data/
 Run this commands (replace SSID and password) to connect to your wifi (this will connect the robot to the internet and temporarily to the cloud):
 wifi_cli -c "SSID" "password"
 ^^^ Warning: If you do this, you MUST reset your WiFi after you installed the custom firmware. Otherwise Valetudo will not work fully. ^^^
-^^^ Do not use wifi_cli if the robot is already in your WiFi! ^^^ 
+If wifi_cli does not work, try this instead: wifi_connect "ssid" "pw"
+^^^ Do not use wifi_cli or wifi_connect if the robot is already in your WiFi! ^^^ 
 
 Run this commands to download an install the rooted firmware:
 cd /tmp
