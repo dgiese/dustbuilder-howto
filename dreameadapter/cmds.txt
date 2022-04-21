@@ -24,10 +24,7 @@ Your robot should boot and present you a shell
 After the system booted, run these commands:
 (you need to execute them in the first 10 seconds after having shell, or the robot reboots)
 
-/etc/init.d/sysconfig.sh
 echo V > /dev/watchdog
-/etc/init.d/mount_private.sh
-/etc/init.d/mount_misc.sh
 
 Temporarily enable the shell and run the normal services:
 

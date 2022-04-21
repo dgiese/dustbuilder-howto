@@ -12,7 +12,7 @@
 # - Roborock S5 Max user group (for people that have Roborock NAND based robots) https://t.me/+kn3EQi7cd4UzYTdi
 # - Valetudo user group (for Valetudo users, not only Roborock robots) https://t.me/+NTCnSnuQYTA2ZTgy
 
-# go to dustbuilder.dontvaccum.me and generate a firmware for your robot
+# go to dustbuilder.dontvacuum.me and generate a firmware for your robot
 # for S5 Max: https://dustbuilder.dontvacuum.me/_s5e.html
 # for S6 Pure: https://dustbuilder.dontvacuum.me/_a08.html
 # for S4 Max: https://dustbuilder.dontvacuum.me/_a19.html
@@ -119,4 +119,11 @@ chmod +x valetudo
 cp /root/_root.sh.tpl /mnt/reserve/_root.sh
 chmod +x /mnt/reserve/_root.sh
 
+If you experience issues with Valetudo, check this: 
+
+make sure that wifi.conf contains "region=de" and "cfg_by=miot"
+cat /mnt/data/miio/wifi.conf
+
+make sure that device.country contains "de" (and nothing else, not even a new line)
+echo -n de > /mnt/data/miio/device.country
 
