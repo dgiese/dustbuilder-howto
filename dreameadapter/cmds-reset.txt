@@ -11,7 +11,7 @@ Connect via UART to your robot (115200 baud, no flow control).
 Check this document for the pinout and further information: https://builder.dontvacuum.me/dreame/dreame.pdf
 
 Power on the robot and make sure that you can see text output. When the robot finished booting, press the "reset" button for less than one second.
-You should see a login prompt. If you dont, your version is too new.
+You should see a login prompt. If you don't, your version is too new.
 Use the username "root".
 Compute the password here: https://builder.dontvacuum.me/dreamepassword.php
 
@@ -51,7 +51,7 @@ wifi_cli -c "SSID" "password"
 If wifi_cli does not work, try this instead: wifi_connect "ssid" "pw"
 ^^^ Do not use wifi_cli or wifi_connect if the robot is already in your WiFi! ^^^ 
 
-Run this commands to download an install the rooted firmware:
+Run this commands to download and install the rooted firmware:
 cd /tmp
 wget --no-check-certificate {url-of-firmware.tar.gz}
 tar -xzvf {name-of-firmware.tar.gz}
@@ -83,4 +83,4 @@ reboot
 - press the Home and Spot button at the same time (if the open WiFi does not shows up)
 - connect to that WiFi
 - navigate to http://192.168.5.1 in your browser
-- Got to settings/wifi and enter your WiFi credentials
+- go to settings/wifi and enter your WiFi credentials
