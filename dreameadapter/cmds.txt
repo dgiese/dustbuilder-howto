@@ -63,19 +63,19 @@ tar -cvzf /tmp/backup/factory.tgz -C /mnt/private/ULI/factory/ .
 cp /tmp/backup/*.tgz /data/
 
 
-Run this commands (replace SSID and password) to connect to your wifi (this will connect the robot to the internet and temporarily to the cloud):
+Run this command (replace SSID and password) to connect to your wifi (this will connect the robot to the internet and temporarily to the cloud):
 wifi_cli -c "SSID" "password"
 ^^^ Warning: If you do this, you MUST reset your WiFi after you installed the custom firmware. Otherwise Valetudo will not work fully. ^^^
-If wifi_cli does not work, try this instead: wifi_connect "ssid" "pw"
-^^^ Do not use wifi_cli or wifi_connect if the robot is already in your WiFi! ^^^ 
+If wifi_cli does not work, try this instead: wifi_connect "SSID" "password"
+^^^ Do not use wifi_cli or wifi_connect if the robot is already in your WiFi! ^^^
 
-Run this commands to download an install the rooted firmware:
+Run this commands to download and install the rooted firmware:
 cd /tmp
 wget --no-check-certificate {url-of-firmware.tar.gz}
 tar -xzvf {name-of-firmware.tar.gz}
 ./install.sh
 
-Sidenote: You can transfer the firmware via nc or via a local webserver. In that case you do not need to use wifi_cli
+Side note: You can transfer the firmware via nc or via a local webserver. In that case you do not need to use wifi_cli
 
 Download valetudo binary to /data:
 https://github.com/Hypfer/Valetudo/releases
@@ -98,6 +98,7 @@ Reboot
 rm /data/config/miio
 reboot
 - wait for the open WiFi of the robot to show up
+- press the Home and Spot button at the same time (if the open WiFi does not show up)
 - connect to that WiFi
 - navigate to http://192.168.5.1 in your browser
-- Got to settings/wifi and enter your WiFi credentials
+- go to settings/wifi and enter your WiFi credentials
