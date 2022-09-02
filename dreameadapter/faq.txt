@@ -5,8 +5,9 @@ Last updated: 08.02.2022
 
 ### General questions ###
 Q: Which devices are currently rootable?
-A: To my knowledge, all models released and all devices manufactured before mid-August 2021 are rootable.
-Check the box for the manufacturing date.
+A: To my knowledge, all models released and all devices manufactured before mid-February 2022 are rootable.
+Check the box for the manufacturing date. There are reports of robots which were manufactured after this date
+that were still rootable. For now, we assume that there are ways to root all currently dustbuilder supported devices.
 
 Q: Where can I find information about the hardware (SoC, RAM, Flash) and software (firmware versions)?
 A: check here: https://dontvacuum.me/robotinfo/
@@ -23,7 +24,7 @@ A: I publish rooting methods with a huge delay in order to prevent the manufactu
 Expect the next wave of rooting methods to Defcon 2022.
 
 Q: Which models are recommended for rooting?
-A: Currently (Sept 2021), I would recommend to go with the Z10 Pro (p2028) or the L10 Pro (p2029, if you dont need a base station).
+A: Currently (Aug 2022), I would recommend to go with the Z10 Pro (p2028) or the L10 Pro (p2029, if you dont need a base station).
 These models have a LIDAR sensor for navigation and have 512 MByte RAM, which should be enough for custom software. 
 If you want to save money, you can also go with the D9 (p2009), but you might have issues due to 256 MByte of RAM. 
 I personally would stay away from VSLAM-only devices. Check also this page for device specific warnings: https://dontvacuum.me/robotinfo/
@@ -50,6 +51,13 @@ The commands for the backup look like this (save all the outputs, some files mig
 'cat /mnt/misc/*.txt'
 'hexdump /mnt/misc/*.bin'
 Hint: It is okay, if you get error messages for some of the commands. Files might not exist on your device.
+Make sure that the outputs are complete and that you store them outside the robot!!!
+
+Q: What is the first thing I should do when I have full SSH access on the device?
+A: Make backups of the most important partitions!
+'dd if=/dev/by-name/private | gzip -9 > /tmp/backup_private.dd.gz'
+'dd if=/dev/by-name/misc | gzip -9 > /tmp/backup_misc.dd.gz'
+Use SCP (e.g. Winscp) to copy these backups from your robot and store them in a safe place
 
 Q: Are you offering a 24/7 support? How fast will you provide support for new models or new firmware versions?
 A: Rooting robots is a hobby for me. It may take days or even weeks to implement new features or models. Typically I wait
@@ -101,7 +109,8 @@ Q: What is the "WiFi reset UART root"?
 A: Dreame left a function in the firmware, which enables a login shell. You need to be connected via UART. If the device is
 fully booted, press the "WiFi reset" button for a short time (<=1 second). This will spawn a login shell, where you can login
 using the "root" user and the device-specific root password. From there, you can install a "manual installation" custom firmware.
-A step by step howto can be found here: https://builder.dontvacuum.me/dreame/cmds-reset.txt
+A step by step howto can be found here: https://valetudo.cloud/pages/general/rooting-instructions.html
+As an reference, you can take also a look at this document (covers only root part):  https://builder.dontvacuum.me/dreame/cmds-reset.txt
 
 Q: How is the root password computed?
 A: You need the serial number *under the dustbin* in all-caps. Compute it under linux by this command:
@@ -112,14 +121,14 @@ For non-Linux user, you might use this formula:
 You can use also the calculator here: https://builder.dontvacuum.me/dreamepassword.php
 
 Q: Are there example howtos for the "WiFi reset UART root"?
-A: Yes. https://builder.dontvacuum.me/dreame/cmds-reset.txt
-Check also the Valetudo docs:
-https://valetudo.cloud/pages/general/rooting-instructions.html
+A: Yes. https://valetudo.cloud/pages/general/rooting-instructions.html
+As an reference (covers only root part):  https://builder.dontvacuum.me/dreame/cmds-reset.txt
 
 Q: How does the "U-Boot single user boot" work?  (only for 1C, F9, D9 and some MOVA models).
 A: You need to be connected via UART. While powering on + booting, we keep the "s" key pressed. This should interrupt the 
 U-Boot booting process and give us a shell in the bootloader. From here we can manipulate the booting behaviour and get a single user shell.
-A step by step howto can be found here: https://builder.dontvacuum.me/dreame/cmds.txt
+Check this document: https://valetudo.cloud/pages/general/rooting-instructions.html
+As an reference (covers only root part):  https://builder.dontvacuum.me/dreame/cmds.txt
 
 Q: Which UART adapters can be used?
 A: Make sure that the adapter is using 3.3V logic level. Check the datasheet of your adapter. Some adapters have jumpers to switch between
@@ -136,6 +145,10 @@ in the Dustbuilder. This will effectively disconnect your robot from the Cloud.
 
 Q: Does Valetudo support all the features that are provided thru the MiHome app?
 A: No, some features (like Map editing, Mop zones, Timers) might not be available. Check http://valetudo.cloud for more details.
+
+Q: Will Valetudo ever support Multimaps? Does it make sense to annoy its developer Sören (aka Hypfer) about that?
+A: Its very unlikely, as it involves a lot of architectural changes, which will benefit only a small amount of users. 
+If you want to get banned on the Valetudo telegram channel, you can go ahead and annoy Sören (aka Hypfer). However, I would not recommend that.
 
 ### Dustbuilder questions ###
 Q: I don't trust you with my email address. Can I use a fake or a temporary one?
