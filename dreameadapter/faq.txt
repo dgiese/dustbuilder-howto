@@ -109,7 +109,7 @@ Q: What is the "WiFi reset UART root"?
 A: Dreame left a function in the firmware, which enables a login shell. You need to be connected via UART. If the device is
 fully booted, press the "WiFi reset" button for a short time (<=1 second). This will spawn a login shell, where you can login
 using the "root" user and the device-specific root password. From there, you can install a "manual installation" custom firmware.
-A step by step howto can be found here: https://valetudo.cloud/pages/general/rooting-instructions.html
+A step by step howto can be found here: https://valetudo.cloud/pages/installation/dreame.html#uart
 As an reference, you can take also a look at this document (covers only root part):  https://builder.dontvacuum.me/dreame/cmds-reset.txt
 
 Q: How is the root password computed?
@@ -121,13 +121,13 @@ For non-Linux user, you might use this formula:
 You can use also the calculator here: https://builder.dontvacuum.me/dreamepassword.php
 
 Q: Are there example howtos for the "WiFi reset UART root"?
-A: Yes. https://valetudo.cloud/pages/general/rooting-instructions.html
+A: Yes. https://valetudo.cloud/pages/installation/dreame.html#uart
 As an reference (covers only root part):  https://builder.dontvacuum.me/dreame/cmds-reset.txt
 
 Q: How does the "U-Boot single user boot" work?  (only for 1C, F9, D9 and some MOVA models).
 A: You need to be connected via UART. While powering on + booting, we keep the "s" key pressed. This should interrupt the 
 U-Boot booting process and give us a shell in the bootloader. From here we can manipulate the booting behaviour and get a single user shell.
-Check this document: https://valetudo.cloud/pages/general/rooting-instructions.html
+Check this document: https://valetudo.cloud/pages/installation/dreame.html#uart
 As an reference (covers only root part):  https://builder.dontvacuum.me/dreame/cmds.txt
 
 Q: Which UART adapters can be used?
