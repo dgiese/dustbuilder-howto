@@ -59,6 +59,8 @@ tar -xzvf {name-of-firmware.tar.gz}
 
 Side note: You can transfer the firmware via nc or via a local webserver. In that case you do not need to use wifi_cli
 
+# If "Prepackage valetudo (only valid for manual install fw) ver. ..." has been selected during firmware build, valetudo is already in place and your robot is already rebooting. If you used wifi_cli, this step still needs to be done.  
+
 Download valetudo binary to /data:
 https://github.com/Hypfer/Valetudo/releases
 Device dependent (check our website):
