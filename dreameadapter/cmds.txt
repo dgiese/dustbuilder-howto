@@ -95,7 +95,7 @@ Reboot
 
 
 (If you used wifi_cli, you need to delete files in /data/config/miio, reboot, connect to the robot WiFi and provision the WiFi via Valetudo):
-rm /data/config/miio
+rm /data/config/miio/wifi.conf
 reboot
 - wait for the open WiFi of the robot to show up
 - press the Home and Spot button at the same time (if the open WiFi does not show up)
